@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<title>COVID-19 Planner</title>
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
+<link rel="icon" href="https://cdn.pixabay.com/photo/2017/09/11/03/18/virus-icon-2737712_1280.png">
+
+<!-- Latest compiled and minified JavaScript -->
+
+
+<style>
+
+body {
+    padding: 0;
+    margin: 0;
+}
+html, body, #mapid {
+    height: 25vw;
+    width: 100vw;
+}
+
+
+@media all and (max-width: 460px) {
+    #mapid {
+        height: 90vw!important;
+    }
+})
+
+@media all and (max-width: 360px) {
+    #mapid {
+        height: 85vw!important;
+    }
+})
+
+
+</style>
+
+</head>
+
+<body>
+<i>
+
+<div class='container'>
+<h1><img src="https://cdn.pixabay.com/photo/2017/09/11/03/18/virus-icon-2737712_1280.png" width=55 height=50/><i> COVID Planner</i></h1>
+<button id='wth' style='margin-bottom: 2%; outline: 0;' class='btn btn-info'>What is this?</button>
+
+
+
+<p id='graph'>
+<i>
+The Irish government has <a href="https://www.gov.ie/en/publication/cf9b0d-new-public-health-measures-effective-now-to-prevent-further-spread-o/">implemented further social restrictions</a> in an effort to combat COVID-19.
+Any non-essential movement beyond your home is limited to a 2km radius for exercise. Only essential acitivties are allowed past.
+This map will not only show you what that radius looks like, but it also has a distance calculator that tells you if your destination is outside the safe zone.
+If at home, you can type your destination and see if you are allowed to access it. <br>
+If you are not at home, you can type your home address to see if you are in the safe zone.<br>
+If the map doesn't show; enable location services on your phone and for your browser, allow the site permission to your access your location, and wait patiently.<br>
+If your location cant be found; please make sure spelling is correct.
+</i></p>
+<br>
+
+</div>
+
+<div class='moveme'>
+
+<div class='row'>
+<div class='col-lg-2'>
+<div id="mapid" class=''></div>
+<script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
+
+
+
+</div>
+</div>
+<br>
+
+<form action="{% url 'search_view' %}" class="form-wrap mt-4" method="get" autocomplete="off">
+                                  {% csrf_token %}
+                                    <div class="btn-group" role="group" aria-label="Basic example">
+                                        <input id='q' name="q" type="text" placeholder="Name.." class="btn-group1" style="outline: 0;" hidden>
+                                        <input id="area" name="area" type="text" placeholder="Area.." class="btn-group2" style="outline: 0;"  hidden>
+
+                                        <input id="king" name="king" type="text" placeholder="Type Location Here..." class="btn-group2" style="outline: 0; margin-bottom: 2%;">
+                                        <button id='search' type="submit" class="btn btn-info" style=" margin-left: 1%; outline: 0; color: white;"><span class="icon-magnifier search-icon"></span>Calculate</button>
+
+                                    </div>
+                                </form>
+
+
+<br>
+<p id='one' style="color:white;">{{a}}</p>
+<p id='two'></p>
+<p id='three'></p>
+<p id='four'></p>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+</div>
+</i>
+<script>
+
+
+if($('#one').text() == '') {
+        $('#graph').hide()
+     $("button").click(function(){
+    $("#graph").toggle();
+  });
+    var userPosition = 
+        {
+        lat: '',
+        lon: ''};
+        if(navigator.geolocation)
+            {
+                navigator.geolocation.getCurrentPosition(function(position){
+                    userPosition.lat = position.coords.latitude;
+                    userPosition.lon = position.coords.longitude;
+                    lat = userPosition.lat;
+                    lon = userPosition.lon;
+                    document.getElementById('q').value = lat
+                    document.getElementById('area').value = lon
+                    var mymap = L.map('mapid').setView([lat, lon], 12);
+                    var marker = L.marker([lat, lon]).addTo(mymap);
+                    
+                    L.circle([lat, lon], 2000,{'color':'red'}).addTo(mymap);
+                    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
+    }).addTo(mymap);
+                
+                })
+
+            }
+
+         
+
+} else {
+    
+
+
+$(document).ready(function(){
+    $('#graph').hide()
+     $("#wth").click(function(){
+    $("#graph").toggle();
+  });
+
+   var userPosition = 
+        {
+        lat: '',
+        lon: ''};
+        if(navigator.geolocation)
+            {
+                navigator.geolocation.getCurrentPosition(function(position){
+                    userPosition.lat = position.coords.latitude;
+                    userPosition.lon = position.coords.longitude;
+                    lat = userPosition.lat;
+                    lon = userPosition.lon;
+                    document.getElementById('q').value = lat
+                    document.getElementById('area').value = lon
+                    var mymap = L.map('mapid').setView([lat, lon], 12);
+                    var marker = L.marker([lat, lon]).addTo(mymap);
+                    
+                    L.circle([lat, lon], 2000,{'color':'green'}).addTo(mymap);
+                    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(mymap);
+
+
+
+
+
+
+var marker2 = L.marker([{{a}}, {{b}}]).addTo(mymap);
+
+function createMarker(){
+     var markerFrom = L.circleMarker([lat,lon], { color: "#F00", radius: 0 });
+     var markerTo =  L.circleMarker([{{a}},{{b}}], { color: "#4AFF00", radius: 0 });
+     var from = markerFrom.getLatLng();
+     var to = markerTo.getLatLng();
+     markerFrom.bindPopup('From ' + (from).toString());
+     markerTo.bindPopup('To ' + (to).toString());
+     mymap.addLayer(markerTo);
+     mymap.addLayer(markerFrom);
+     getDistance(from, to);
+}
+
+createMarker()
+    var polygon = L.polygon([
+    [lat, lon],
+    [{{a}}, {{b}}],
+    [{{a}}, {{b}}]
+]).addTo(mymap);
+
+function getDistance(from, to)
+{
+
+    var uno = document.getElementById('one');
+    let c2 = 2-from.distanceTo(to).toFixed(0)/1000
+    if(c2 < 0) {
+        uno.innerHTML = 'STATUS: DANGER'
+        uno.style.color = 'red'
+        var container2 = document.getElementById('three');
+        let c5 = from.distanceTo(to).toFixed(0)/1000 - 2
+        let c51 = Math.round((c5 + Number.EPSILON) * 100) / 100
+        container2.innerHTML = "Distance outside safe zone  : " + c51 + 'km'
+    } else {
+        uno.innerHTML = 'STATUS: SAFE'
+        uno.style.color = 'green'
+        var container2 = document.getElementById('three');
+        let c52 = Math.round((c2 + Number.EPSILON) * 100) / 100
+    container2.innerHTML = "Distance left in safe zone  : " + c52 + 'km'
+    }
+
+    var container = document.getElementById('two');
+    container.innerHTML = ("Your Location to Destination  : " + (from.distanceTo(to)).toFixed(0)/1000) + 'km';
+
+}
+
+
+
+
+                });
+            }
+            else
+            {
+                alert("Geolocation not supported by your browser");
+            }
+
+    });
+
+}
+</script>
+
+
+
+<style>
+
+</style>
+
+</body>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+</html>
+

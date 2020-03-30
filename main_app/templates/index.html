@@ -1,0 +1,56 @@
+<html>
+<body>
+
+<p>Coords will load momentarily.</p>
+
+<form action="{% url 'search_view' %}" class="form-wrap mt-4" method="get" autocomplete="off">
+                                  {% csrf_token %}
+                                    <div class="btn-group" role="group" aria-label="Basic example">
+                                        <input id='q' name="q" type="text" placeholder="Name.." class="btn-group1" style="outline: 0;" hidden>
+                                        <input id="area" name="area" type="text" placeholder="Area.." class="btn-group2" style="outline: 0;" hidden>
+                                        <input id="king" name="king" type="text" placeholder="Area.." class="btn-group2" style="outline: 0;">
+                                        <button id='sarch' type="submit" class="btn-form" style="outline: 0; background: #ffbf24;"><span class="icon-magnifier search-icon"></span>SEARCH<i class="pe-7s-angle-right"></i></button>
+                                    </div>
+                                </form>
+
+
+<script
+  src="https://code.jquery.com/jquery-3.4.1.slim.js"
+  integrity="sha256-BTlTdQO9/fascB1drekrDVkaKd9PkwBymMlHOiG+qLI="
+  crossorigin="anonymous"></script>
+
+
+<script>
+$(document).ready(function(){
+   var x
+   var userPosition = 
+        {
+        lat: '',
+        lon: ''};
+        if(navigator.geolocation)
+            {
+                navigator.geolocation.getCurrentPosition(function(position){
+                    userPosition.lat = position.coords.latitude;
+                    userPosition.lon = position.coords.longitude;
+                    lat = userPosition.lat;
+                    long = userPosition.lon;
+                    document.getElementById('q').value = lat
+                    document.getElementById('area').value = long
+                    
+
+
+                });
+            }
+            else
+            {
+                alert("Geolocation not supported by your browser");
+            }
+
+    });
+
+</script>
+
+
+
+</body>
+</html>
