@@ -1,5 +1,8 @@
 # covidtracker
-A Covid-19 Tracking App and distance calculator for residents of Ireland to see where they can go in a limited radius. This allows people to do the following:
+A Covid-19 Tracking App and distance calculator for residents of Ireland to see where they can go in a limited radius.
+The site can be accessed from [here](https://cplan.pythonanywhere.com)
+
+This allows people to do the following:
 
 1. Calculate distance between their home and a location, to see if it is in the allowed radius
 2. Set a tracker to track location and alert users if they have passed the allowed radius
