@@ -6,7 +6,7 @@ A Covid-19 Tracking App and distance calculator for residents of Ireland to see 
 3. Set a home destination remotely, so even if they are not at home they can still start a tracker.
 
 # Additional Information
-This was built as a Django Web App, with the use of the [https://locationiq.com] (LocationIQ API) heavy use of the following front-end JS Libraries:
+This was built as a Django Web App, with the use of the [LocationIQ API](https://locationiq.com) heavy use of the following front-end JS Libraries:
 
 1. JQuery(DOM Manipulation)
 2. SWAL.js(For notifications)
