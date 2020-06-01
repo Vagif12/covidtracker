@@ -8,9 +8,9 @@ A Covid-19 Tracking App and distance calculator for residents of Ireland to see 
 # Additional Information
 This was built as a Django Web App, with heavy use of the following front-end JS Libraries:
 
-JQuery(DOM Manipulation)
-SWAL.js(For notifications)
-Leaflet.js(Open source map library for JS)
+1. JQuery(DOM Manipulation)
+2. SWAL.js(For notifications)
+3. Leaflet.js(Open source map library for JS)
 
 # License
 This is open source, so feel free to modify and improve as needs be!
