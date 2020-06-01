@@ -41,7 +41,7 @@ def search(request):
     else:
         z = iphone + ' ireland'
         zz = urllib.parse.quote_plus(z)
-        res1 = requests.get('https://eu1.locationiq.com/v1/search.php?key=63a7a1cc5a7398&q={}&format=json'.format(zz))
+        res1 = requests.get('https://eu1.locationiq.com/v1/search.php?key=INSERT_API_KEY_HERE&q={}&format=json'.format(zz))
         try:
             z1 = res1.json()[0]['lat']
             z2 = res1.json()[0]['lon']
