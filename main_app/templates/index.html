@@ -2,7 +2,8 @@
 <body>
 
 <p>Coords will load momentarily.</p>
-
+<p>{{q}}</p>
+{{area}}
 <form action="{% url 'search_view' %}" class="form-wrap mt-4" method="get" autocomplete="off">
                                   {% csrf_token %}
                                     <div class="btn-group" role="group" aria-label="Basic example">
@@ -21,24 +22,13 @@
 
 
 <script>
-$(document).ready(function(){
-   var x
-   var userPosition = 
-        {
-        lat: '',
-        lon: ''};
-        if(navigator.geolocation)
-            {
+        if(navigator.geolocation) {
+                alert('Browset support geo')
+                console.log({{q}})
                 navigator.geolocation.getCurrentPosition(function(position){
-                    userPosition.lat = position.coords.latitude;
-                    userPosition.lon = position.coords.longitude;
-                    lat = userPosition.lat;
-                    long = userPosition.lon;
-                    document.getElementById('q').value = lat
-                    document.getElementById('area').value = long
-                    
-
-
+                    setTimeout(5000, alert('hi'))
+                    clearTimeout()
+                    alert(position.coords.latitude);
                 });
             }
             else
@@ -46,9 +36,10 @@ $(document).ready(function(){
                 alert("Geolocation not supported by your browser");
             }
 
-    });
+
 
 </script>
+
 
 
 

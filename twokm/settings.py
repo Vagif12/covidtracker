@@ -23,9 +23,9 @@ TEMPLATE_DIR = os.path.join(BASE_DIR,'templates')
 SECRET_KEY = '7fj(2pi1mo5_#xp%+#7bp%09$(wdm4ifkrwk%=e6ijt8osl%c&'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['cplan.pythonanywhere.com','covtrack.ml','covtrack.tk']
 
 
 # Application definition
